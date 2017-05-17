@@ -11,11 +11,11 @@ function try_get_property($object, $name, $default = null) {
 function to_indexed_array($object, $properties, $reference = false) {
 		if($reference) {
 				foreach($properties as $property) {
-						$result[$property] =& try_get_property($object, $property);
+						$result[$property] = $object->$property;
 				}
 		} else {
 				foreach($properties as $property) {
-						$result[$property] = try_get_property($object, $property);
+						$result[$property] = $object->$property;
 				}
 		}
 
@@ -25,11 +25,11 @@ function to_indexed_array($object, $properties, $reference = false) {
 function to_array($object, $properties, $reference = false) {
 		if($reference) {
 				foreach($properties as $property) {
-						$result[] =& try_get_property($object, $property);
+						$result[] =& $object->$property;
 				}
 		} else {
 				foreach($properties as $property) {
-						$result[] = try_get_property($object, $property);
+						$result[] = $object->$property;
 				}
 		}
 
