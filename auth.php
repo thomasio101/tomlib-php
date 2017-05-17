@@ -82,7 +82,7 @@ function validate_token($user, $token) {
 
 		$tokens = ArrayUtil\group($tokens, $key_function);
 
-		$valid_tokens = ArrayUtil\try_get_element($tokens, true, []);
+		$valid_tokens = ArrayUtil\try_get_element(true, $tokens, []);
 
 		foreach($valid_tokens as $element) {
 				if(password_verify($token, $element->token))
