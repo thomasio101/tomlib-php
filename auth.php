@@ -69,6 +69,8 @@ function insert_token($user, $token) {
 		$token_hash = password_hash($token, PASSWORD_DEFAULT);
 
 		$stmt->bind_param("is", $user->id, $token_hash);
+
+		$stmt->execute();
 }
 
 function validate_token($user, $token) {
