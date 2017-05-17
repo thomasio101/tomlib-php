@@ -48,7 +48,7 @@ function check_password($user, $password) {
 }
 
 function generate_token() {
-		$seed = rand(0, 68719476736);
+		$seed = rand(0, 16777216);
 
 		$token = Base64\url_encode($seed);
 
