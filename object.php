@@ -21,3 +21,17 @@ function to_indexed_array($object, $properties, $reference = false) {
 
 		return $result;
 }
+
+function to_array($object, $properties, $reference = false) {
+		if($reference) {
+				foreach($properties as $property) {
+						$result[] =& try_get_property($object, $property);
+				}
+		} else {
+				foreach($properties as $property) {
+						$result[] = try_get_property($object, $property);
+				}
+		}
+
+		return $result;
+}
