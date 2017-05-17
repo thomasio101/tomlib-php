@@ -56,3 +56,28 @@ function table_to_array($name, $classname = "stdClass") {
 
 		return $result;
 }
+
+function table_to_indexed_array($name, $key_field, $classname = "stdClass") {
+		$table_config = get_table_config($name);
+
+		$database_name = $table_config->database;
+
+		$connection = connect_database($database_name);
+
+		$stmt = $connection->prepare("SELECT * FROM $table_config->name;");
+
+		$result = array();
+
+		if($stmt->execute()) {
+				$res = $stmt->get_result();
+
+				while($row = $res->fetch_object($classname))
+						$result[$row->$key_field] = $row;
+
+				$stmt->close();
+		}
+
+		$connection->close();
+
+		return $result;
+}
