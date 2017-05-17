@@ -39,7 +39,7 @@ class User {
 		function get_token() {
 				$token = generate_token();
 
-				insert_token($user, $token);
+				insert_token($this, $token);
 
 				return $token;
 		}
