@@ -27,6 +27,10 @@ class User {
 		function register() {
 				register_user($this);
 		}
+
+		function check_password($password) {
+				return check_password($this, $password);
+		}
 }
 
 function get_users() {
