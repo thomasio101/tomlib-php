@@ -35,7 +35,7 @@ function get_users() {
 
 function get_user($username) {
 		$users = get_users();
-		$users = ArrayUtil\index_by_property("username");
+		$users = ArrayUtil\index_by_property($users, "username");
 
 		return ArrayUtil\try_get_element($users, $username);
 }
