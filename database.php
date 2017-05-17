@@ -44,7 +44,9 @@ function table_to_array($name, $classname = "stdClass") {
 		$result = array();
 
 		if($stmt->execute()) {
-				while($row = $stmt->fetch_object($classname))
+				$res = $stmt->get_result();
+
+				while($row = $res->fetch_object($classname))
 						$result[] = $row;
 
 				$stmt->close();
