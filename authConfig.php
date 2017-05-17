@@ -17,7 +17,7 @@ function load() {
 function get_setting($name) {
 		global $tomlib_auth_config;
 
-		load_config();
+		load();
 
 		return Object\try_get_element($tomlib_auth_config, $name);
 }
