@@ -64,7 +64,7 @@ function insert_token($user, $token) {
 
 		$connection = Database\connect_database($database_name);
 
-		$stmt = $connection->prepare("INSERT INTO $table_config->name SET user_id = ?, token = ?;");
+		$stmt = $connection->prepare("INSERT INTO $table_config->name SET userId = ?, token = ?;");
 
 		$token_hash = password_hash($token, PASSWORD_DEFAULT);
 
