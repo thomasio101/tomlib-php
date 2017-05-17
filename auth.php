@@ -36,7 +36,7 @@ function get_tokens() {
 
 function get_tokens_for_user($user) {
 		$tokens = get_tokens();
-		$tokens = ArrayUtil\group_by_property($tokens, "user_id");
+		$tokens = ArrayUtil\group_by_property($tokens, "userId");
 
 		return ArrayUtil\try_get_element($tokens, $user->id, []);
 }
