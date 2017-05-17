@@ -55,6 +55,26 @@ function get_tokens_for_user($user) {
 		return ArrayUtil\try_get_element($tokens, $user->id, []);
 }
 
+function register_user(&$user) {
+		$table_name = AuthConfig\get_setting("userTable");
+
+		$table_config = Database\get_table_config($table_name);
+
+		$database_name = $table_config->database;
+
+		$connection = Database\connect_database($database_name);
+
+		$stmt = $connection->prepare("INSERT INTO $table_config->name SET username = ?, hash = ?;");
+
+		$stmt->bind_param("ss", $user->username, $user->hash);
+
+		$stmt->execute();
+
+		$user->id = $connection->insert_id;
+
+		$connection->close();
+}
+
 function check_password($user, $password) {
 		$hash = $user->hash;
 
@@ -85,7 +105,7 @@ function insert_token($user, $token) {
 		$stmt->bind_param("is", $user->id, $token_hash);
 
 		$stmt->execute();
-	
+
 		$connection->close();
 }
 
