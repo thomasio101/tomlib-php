@@ -23,6 +23,10 @@ class User {
 				$this->username = $username;
 				$this->hash = password_hash($password, PASSWORD_DEFAULT);
 		}
+
+		function register() {
+				register_user($this);
+		}
 }
 
 function get_users() {
