@@ -11,10 +11,24 @@ use tomlib\database as Database;
 use tomlib\array_util as ArrayUtil;
 use tomlib\base64 as Base64;
 
+class User {
+		public $id;
+		public $username;
+		public $hash;
+
+		function __construct($username = null, $password = null) {
+				if(is_null($username) || is_null($password))
+						return;
+
+				$this->username = $username;
+				$this->hash = password_hash($password, PASSWORD_DEFAULT);
+		}
+}
+
 function get_users() {
 		$table_name = AuthConfig\get_setting("userTable");
 
-		$users = Database\table_to_array($table_name);
+		$users = Database\table_to_array($table_name, "tomlib\auth\User");
 
 		return $users;
 }
@@ -75,20 +89,20 @@ function insert_token($user, $token) {
 
 function validate_token($user, $token) {
 		$tokens = get_tokens_for_user($user);
-	
+
 		global $time_threshold;
 
 		$time_threshold = time() - 43200;
 
 		$key_function = function($element) {
-				global $time_threshold;	
-			
+				global $time_threshold;
+
 				return time($element->timestamp) > $time_threshold;
 		};
 
 		$tokens = ArrayUtil\group($tokens, $key_function);
 
-		$valid_tokens = ArrayUtil\try_get_element(true, $tokens, []);
+		$valid_tokens = ArrayUtil\try_get_element($tokens, 1, []);
 
 		foreach($valid_tokens as $element) {
 				if(password_verify($token, $element->token))
