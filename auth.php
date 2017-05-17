@@ -35,6 +35,14 @@ class User {
 		function verify_token($token) {
 				return verify_token($this, $token);
 		}
+
+		function get_token() {
+				$token = generate_token();
+
+				insert_token($user, $token);
+
+				return $token;
+		}
 }
 
 function get_users() {
