@@ -31,7 +31,7 @@ function connect_database($name) {
 		return new mysqli($username, $password, $database_name);
 }
 
-function table_to_array($name) {
+function table_to_array($name, $classname = "stdClass") {
 		$table_config = get_table_config($name);
 
 		$database_name = $table_config->database;
@@ -43,7 +43,7 @@ function table_to_array($name) {
 		$result = array();
 
 		if($stmt->execute()) {
-				while($row = $stmt->fetch_object())
+				while($row = $stmt->fetch_object($classname))
 						$result[] = $row;
 
 				$stmt->close();
