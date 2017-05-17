@@ -85,6 +85,8 @@ function insert_token($user, $token) {
 		$stmt->bind_param("is", $user->id, $token_hash);
 
 		$stmt->execute();
+	
+		$connection->close();
 }
 
 function validate_token($user, $token) {
