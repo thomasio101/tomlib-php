@@ -19,5 +19,5 @@ function get_setting($name) {
 
 		load();
 
-		return Object\try_get_element($tomlib_auth_config, $name);
+		return Object\try_get_property($tomlib_auth_config, $name);
 }
