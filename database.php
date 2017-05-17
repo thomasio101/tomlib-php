@@ -66,7 +66,9 @@ function table_to_indexed_array($name, $key_field, $classname = "stdClass") {
 		$result = array();
 
 		if($stmt->execute()) {
-				while($row = $stmt->fetch_object($classname))
+				$res = $stmt->get_result();
+
+				while($row = $res->fetch_object($classname))
 						$result[$row->$key_field] = $row;
 
 				$stmt->close();
