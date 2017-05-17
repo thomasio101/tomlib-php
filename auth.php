@@ -73,10 +73,14 @@ function insert_token($user, $token) {
 
 function validate_token($user, $token) {
 		$tokens = get_tokens_for_user($user);
+	
+		global $time_threshold;
 
 		$time_threshold = time() - 43200;
 
 		$key_function = function($element) {
+				global $time_threshold;	
+			
 				return $element->timestamp > $time_threshold;
 		};
 
