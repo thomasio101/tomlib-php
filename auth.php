@@ -81,7 +81,7 @@ function validate_token($user, $token) {
 		$key_function = function($element) {
 				global $time_threshold;	
 			
-				return $element->timestamp > $time_threshold;
+				return time($element->timestamp) > $time_threshold;
 		};
 
 		$tokens = ArrayUtil\group($tokens, $key_function);
