@@ -24,11 +24,12 @@ function get_table_config($name) {
 function connect_database($name) {
 		$database_config = get_database_config($name);
 
+		$hostname = $database_config->hostname;
 		$username = $database_config->username;
 		$password = $database_config->password;
 		$database_name = $database_config->name;
 
-		return new mysqli($username, $password, $database_name);
+		return new mysqli($hostname, $username, $password, $database_name);
 }
 
 function table_to_array($name, $classname = "stdClass") {
