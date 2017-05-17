@@ -7,3 +7,17 @@ function try_get_property($object, $name, $default = null) {
 		else
 				return $default;
 }
+
+function to_indexed_array($object, $properties, $reference = false) {
+		if($reference) {
+				foreach($properties as $property) {
+						$result[] =& try_get_property($object, $property);
+				}
+		} else {
+				foreach($properties as $property) {
+						$result[] = try_get_property($object, $property);
+				}
+		}
+
+		return $result;
+}
