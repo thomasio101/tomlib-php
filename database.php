@@ -1,11 +1,13 @@
 <?php
-namespace tomlib\database;
+		namespace tomlib\database;
 
 include_once dirname(__FILE__) . "/config.php";
 include_once dirname(__FILE__) . "/object.php";
+include_once dirname(__FILE__) . "/array.php";
 
 use tomlib\config as Config;
 use tomlib\object as Object;
+use tomlib\array_util as ArrayUtil;
 
 use mysqli;
 
@@ -105,6 +107,22 @@ function get_setstring($column_names) {
 
 				$setstring .= is_null($setstring) ? "$column_name = ?" : ", $column_name = ?";
 		}
+
+		return $setstring;
+}
+
+function get_setstring_for_table($table_name) {
+		$table_config = get_table_config($table_name);
+
+		$columns = $table_config->columns;
+
+		for($i = 0; $i < count($columns); $i++) {
+				$column = $columns[$i];
+
+				$column_names[] = $column->name;
+		}
+
+		$setstring = get_setstring($column_names);
 
 		return $setstring;
 }
