@@ -81,3 +81,16 @@ function table_to_indexed_array($name, $key_field, $classname = "stdClass") {
 
 		return $result;
 }
+
+function get_typestring($table_name, $columns = null) {
+		$table_config = get_table_config($table_name);
+
+		for($i = 0; $i < count($table_config->columns); $i++) {
+				if($columns == null)
+						$typestring .= $table_config->columns[$i]->type;
+				else if(in_array($table_config->columns[$i]->type, $columns))
+						$typestring .= $table_config->columns[$i]->type;
+		}
+
+		return $typestring
+}
