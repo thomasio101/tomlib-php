@@ -85,6 +85,8 @@ function table_to_indexed_array($name, $key_field, $classname = "stdClass") {
 function get_typestring($table_name, $columns = null) {
 		$table_config = get_table_config($table_name);
 
+		$typestring = null;
+
 		for($i = 0; $i < count($table_config->columns); $i++) {
 				if($columns == null)
 						$typestring .= $table_config->columns[$i]->type;
@@ -92,5 +94,17 @@ function get_typestring($table_name, $columns = null) {
 						$typestring .= $table_config->columns[$i]->type;
 		}
 
-		return $typestring
+		return $typestring;
+}
+
+function get_setstring($column_names) {
+		$setstring = null;
+
+		for($i = 0; $i < count($column_names); $i++) {
+				$column_name = $column_names[$i];
+
+				$setstring .= is_null($setstring) ? "$column_name = ?" : ", $column_name = ?";
+		}
+
+		return $setstring;
 }
